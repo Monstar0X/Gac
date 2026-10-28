@@ -1,0 +1,25 @@
+{
+  "name": "waifu-gacha-3d",
+  "private": true,
+  "version": "0.2.0-beta.1",
+  "type": "module",
+  "description": "Pixel-art 3D waifu collection RPG - Luck Royale gacha, themed quest worlds, relics, connection and store.",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 12000",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 12000",
+    "typecheck": "tsc --noEmit",
+    "test": "node smoke.mjs",
+    "invites": "node tools/make-invites.mjs",
+    "check": "tsc --noEmit && vite build"
+  },
+  "dependencies": {
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.169.0",
+    "playwright": "^1.64.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}
