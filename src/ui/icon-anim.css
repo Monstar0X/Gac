@@ -1,0 +1,97 @@
+/* ── icon animation layer ──
+   All motion here is stepped rather than eased. Eased transforms interpolate
+   sub-pixels, which softens the drawn 16x16 grids; `steps()` keeps every frame
+   snapped to a whole-pixel pose so icons read as animated sprite frames.
+
+   Offsets animate the independent `translate`/`scale` properties rather than
+   `transform`. Button icons carry a baseline `transform: translateY(-1px)` to
+   sit optically centred; animating `transform` here would clobber that and pop
+   the icon 1px on every hover. The standalone properties compose with it. */
+.nav-btn .nav-ico {
+  transform-origin: 50% 60%;
+}
+
+.nav-btn.active .nav-ico {
+  animation: icoPop 0.22s steps(3, end);
+}
+
+@keyframes icoPop {
+  0% { translate: 0 0; scale: 1; }
+  45% { translate: 0 -3px; scale: 1.16; }
+  100% { translate: 0 0; scale: 1; }
+}
+
+.nav-btn:not(.active):hover .nav-ico {
+  animation: icoBob 0.6s steps(2, end) infinite;
+}
+
+@keyframes icoBob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -2px; }
+}
+
+.btn:hover .btn-ico {
+  animation: icoBob 0.7s steps(2, end) infinite;
+}
+
+.btn:active .btn-ico {
+  animation: none;
+  translate: 0 2px;
+  scale: 0.94;
+}
+
+/* Currency marks idle-pulse so the HUD reads as a live counter. */
+.ico.coin,
+.ico.token {
+  animation: coinGlint 2.6s steps(4, end) infinite;
+}
+
+.ico.crystal,
+.ico.shard {
+  animation: crystalGlint 3.1s steps(4, end) infinite;
+}
+
+@keyframes coinGlint {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.28) saturate(1.15); }
+}
+
+@keyframes crystalGlint {
+  0%, 62%, 100% { filter: brightness(1); }
+  78% { filter: brightness(1.35) saturate(1.2); }
+}
+
+/* Reward chests and the hero randomiser get a single playful wobble. */
+.ico-lg.crystal,
+.ico-lg.coin {
+  animation: coinGlint 2.6s steps(4, end) infinite;
+}
+
+/* The welcome-note dismiss button spins its cross on hover. */
+.home-dismiss .btn-ico {
+  transition: transform 0.12s steps(3, end);
+}
+
+.home-dismiss:hover .btn-ico {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-btn .nav-ico,
+  .nav-btn.active .nav-ico,
+  .nav-btn:not(.active):hover .nav-ico,
+  .btn:hover .btn-ico,
+  .btn:active .btn-ico,
+  .ico.coin,
+  .ico.crystal,
+  .ico.shard,
+  .ico.token,
+  .ico-lg.coin,
+  .ico-lg.crystal,
+  .home-dismiss .btn-ico {
+    animation: none;
+    transition: none;
+    translate: none;
+    scale: none;
+  }
+}
